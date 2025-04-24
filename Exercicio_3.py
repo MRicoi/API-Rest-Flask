@@ -29,7 +29,27 @@ def estudantes():
     else:
         abort(404)
 
-# Inserir, Atualizar e Deletar.
+# Ver, Atualizar e Deletar
+@app.route('/estudante/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+def estudante(id):
+    global bd
+
+    estudante = bd[bd['id'] == id]
+
+    if id < 0 or id >= len(bd):
+        return make_response(jsonify("Id nao existe"), 400)
+    else:
+        if request.method == "GET":
+            return make_response(jsonify(estudante.to_dict()), 200)
+        elif request.method == "PUT": # fazer algo pro usuario nao atualizar com outro id e em colunas que nao existem
+            dados = request.get_json()
+            bd.loc[bd['id'] == id, dados.keys()] = list(dados.values())
+            return make_response(jsonify("Estudante atualizado com sucesso!"), 200)
+        elif request.method == "DELETE": # colocar erro caso nao exista esse id que quer deletar
+            bd.drop(bd[bd('id') == id].index, inplace=True)
+            return make_response(jsonify("Estudante removido com sucesso!"), 200)
+        else:
+            abort(400)
 
 
 if __name__ == "__main__":
