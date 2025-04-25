@@ -21,35 +21,49 @@ def estudantes():
 
     if request.method == 'GET':
         return make_response(jsonify(bd.to_dict(orient='records')))
-    elif request.method == 'POST': # Colocar que precisa ter todos os campos e oque precisa ser cada resposta
+    
+    elif request.method == 'POST':
         dados = request.get_json()
+        colunas_invalidas = [col for col in dados.keys() if col not in bd.columns]
+        if colunas_invalidas:
+            return make_response(jsonify(f"Colunas inválidas: {colunas_invalidas}"), 400)
         novo = pd.DataFrame([dados])
         bd = pd.concat([bd, novo], ignore_index=True)
         return make_response(jsonify("Estudante inserido com sucesso!"), 200)
+    
     else:
         abort(404)
+
+
 
 # Ver, Atualizar e Deletar
 @app.route('/estudante/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def estudante(id):
     global bd
 
-    estudante = bd[bd['id'] == id]
-
     if id < 0 or id >= len(bd):
         return make_response(jsonify("Id nao existe"), 400)
+    
     else:
         if request.method == "GET":
-            return make_response(jsonify(estudante.to_dict()), 200)
-        elif request.method == "PUT": # fazer algo pro usuario nao atualizar com outro id e em colunas que nao existem
+            return make_response(jsonify(bd.iloc[id].to_dict()), 200)
+        
+        elif request.method == "PUT":
             dados = request.get_json()
-            bd.loc[bd['id'] == id, dados.keys()] = list(dados.values())
-            return make_response(jsonify("Estudante atualizado com sucesso!"), 200)
-        elif request.method == "DELETE": # colocar erro caso nao exista esse id que quer deletar
-            bd.drop(bd[bd['id'] == id].index, inplace=True)
+            colunas_invalidas = [col for col in dados.keys() if col not in bd.columns]
+            if colunas_invalidas:
+                return make_response(jsonify(f"Colunas inválidas: {colunas_invalidas}"), 400)
+            for coluna, valor in dados.items():
+                bd.at[id, coluna] = valor
+                return make_response(jsonify("Estudante atualizado com sucesso!"), 200)
+            
+        elif request.method == "DELETE":
+            bd.drop(index=id, inplace=True)
+            bd.reset_index(drop=True, inplace=True) # Na duvida se deixa ou arruma os index
             return make_response(jsonify("Estudante removido com sucesso!"), 200)
         else:
             abort(400)
+
 
 
 # Consulta: Devem ser implementados tres tipos de consulta
