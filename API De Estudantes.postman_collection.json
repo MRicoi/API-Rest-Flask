@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "c2e52b24-de8f-465d-a1d0-0595488584ac",
+		"name": "API De Estudantes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "44051693",
+		"_collection_link": "https://matheusricoi-9499589.postman.co/workspace/Matheus-Ricoi's-Workspace~9f5f7d30-0e9e-49d5-84a8-60d2ecb8cddc/collection/44051693-c2e52b24-de8f-465d-a1d0-0595488584ac?action=share&source=collection_link&creator=44051693"
+	},
+	"item": [
+		{
+			"name": "Todos estudantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:5000/estudantes"
+			},
+			"response": []
+		},
+		{
+			"name": "Novo Estudante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:5000/estudantes"
+			},
+			"response": [
+				{
+					"name": "Before add",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\": \"female\",\n    \"race/ethnicity\": \"group B\",\n    \"parental level of education\": \"bachelor's degree\",\n    \"lunch\": \"standard\",\n    \"test preparation course\": \"none\",\n    \"math score\" : 72,\n    \"reading score\": 72,\n    \"writing score\": 74\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/estudante/1000"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Adicionando",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\": \"female\",\n    \"race/ethnicity\": \"group B\",\n    \"parental level of education\": \"bachelor's degree\",\n    \"lunch\": \"standard\",\n    \"test preparation course\": \"none\",\n    \"math score\" : 72,\n    \"reading score\": 72,\n    \"writing score\": 74\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/estudantes"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "After add",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/estudante/1000"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Estudante Especifico",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:5000/estudante/1000"
+			},
+			"response": []
+		},
+		{
+			"name": "Estudante Especifico",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://127.0.0.1:5000/estudante/(numero)"
+			},
+			"response": [
+				{
+					"name": "Deletar 1000",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:5000/estudante/1000"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Verificando",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/estudante/1000"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Primeiros n Estudantes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:5000/estudantes/n/(quantidade de estudantes)"
+			},
+			"response": [
+				{
+					"name": "Primeiros n Estudantes",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/estudantes/n/5"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Estudantes Genero Esp",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:5000/estudantes/gender/(genero que deseja especificar)"
+			},
+			"response": [
+				{
+					"name": "Estudantes Genero Esp",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/estudantes/gender/male"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Estudantes Filtro JSON",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Escreva o dicionado contendo os filtros desejados",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:5000/estudantes/filtros"
+			},
+			"response": [
+				{
+					"name": "Exemplo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\": \"male\",\n    \"race/ethnicity\": \"group A\",\n    \"parental level of education\": \"some college\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/estudantes/filtros"
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
