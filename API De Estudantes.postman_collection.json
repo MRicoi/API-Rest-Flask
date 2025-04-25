@@ -108,6 +108,24 @@
 			"response": []
 		},
 		{
+			"name": "Atualizando estudante",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"math score\": 92,\n    \"race/ethnicity\": \"group A\",\n    \"reading score\": 92,\n    \"writing score\": 94\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:5000/estudante/1000"
+			},
+			"response": []
+		},
+		{
 			"name": "Estudante Especifico",
 			"request": {
 				"method": "DELETE",
