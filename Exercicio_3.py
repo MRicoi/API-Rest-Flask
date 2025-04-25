@@ -46,11 +46,47 @@ def estudante(id):
             bd.loc[bd['id'] == id, dados.keys()] = list(dados.values())
             return make_response(jsonify("Estudante atualizado com sucesso!"), 200)
         elif request.method == "DELETE": # colocar erro caso nao exista esse id que quer deletar
-            bd.drop(bd[bd('id') == id].index, inplace=True)
+            bd.drop(bd[bd['id'] == id].index, inplace=True)
             return make_response(jsonify("Estudante removido com sucesso!"), 200)
         else:
             abort(400)
 
+
+# Consulta: Devem ser implementados tres tipos de consulta
+# Retornar os n primeiros elementos do dataset
+@app.route('/estudantes/n/<int:n>', methods=['GET'])
+def get_n_primeiros(n):
+    global bd
+
+    return make_response(jsonify(bd.head(n).to_dict(orient='records')), 200)
+
+# consulta que que receba um dos campos string do dataset (o grupo pode definir
+# qual o campo) como parâmetro e retorna somente os dados que possuem valor
+# do campo escolhido igual ao valor informado
+# localhost:5000/<endpoint>/João da Silva → retorna somente as linhas onde
+# campo é igual a João da Silva
+@app.route('/estudantes/gender/<valor>', methods=['GET'])
+def get_por_genero(valor):
+    global bd
+
+    filtrado = bd[bd['gender'].str.lower() == valor.lower()]
+    return make_response(jsonify(filtrado.to_dict(orient='records')), 200)
+
+# uma consulta que recebe um json que permita filtrar por mais de um campo
+# do dataset ao mesmo tempo. Os campos não devem ser fixos, ou seja, deve ser
+# possível fazer a consulta por quaisquer campos desejados.
+@app.route('/estudantes/filtros', methods=['POST'])
+def consulta_filtros():
+    global bd
+
+    filtros = request.get_json()
+    df_filtrado = bd.copy()
+
+    for campo, valor in filtros.items():
+        if campo not in bd.columns:
+            return make_response(jsonify("Campo '{campo}' nao existe no dataset."), 400)
+        df_filtrado = df_filtrado[df_filtrado[campo] == valor]
+    return make_response(jsonify(df_filtrado.to_dict(orient='records')), 200)
 
 if __name__ == "__main__":
     app.run(debug=True)
