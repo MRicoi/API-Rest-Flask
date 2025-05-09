@@ -1,4 +1,4 @@
-# Grupo: Marcos Kayser, Matheus Ricoi, Pedro Bastos e Vittor Brittis
+# Grupo: Davi Alcantara, Matheus Ricoi e Pedro Bastos
 # Turma: 10
 # Entrega: 05/05
 
